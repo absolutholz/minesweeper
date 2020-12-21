@@ -1,31 +1,29 @@
 <template>
-	<button
-		@contextmenu.prevent="mark"
-		@click.prevent="reveal"
+	<span
 		class="field"
 		:class="stateClasses"
 		type="button"
 	>
 		<span
-			v-if="state === states.STATE_REVEALED && nearMineCount"
+			v-if="isRevealed"
 		>{{ nearMineCount }}</span>
 		<svg-flagged
-			v-else-if="state === states.STATE_FLAGGED"
+			v-else-if="isFlagged"
 			class="icon"
 		/>
 		<svg-questioned
-			v-else-if="state === states.STATE_QUESTIONED"
+			v-else-if="isQuestioned"
 			class="icon"
 		/>
 		<svg-detonated
-			v-else-if="state === states.STATE_DETONATED"
+			v-else-if="isDetonated"
 			class="icon"
 		/>
 		<span
 			v-else
 			class="icon field__placeholder"
 		></span>
-	</button>
+	</span>
 </template>
 
 <script>
@@ -38,8 +36,6 @@ export const STATE_REVEALED = 'revealed';
 export const STATE_FLAGGED = 'flagged';
 export const STATE_QUESTIONED = 'questioned';
 export const STATE_DETONATED = 'detonated';
-
-const states = [ STATE_UNEXPLORED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED ];
 
 export default {
 	name: 'Field',
@@ -56,7 +52,7 @@ export default {
 			required: false,
 			type: String,
 			validator: function(value) {
-				return states.indexOf(value) !== -1;
+				return [ STATE_UNEXPLORED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED ].indexOf(value) !== -1;
 			},
 		},
 
@@ -67,13 +63,23 @@ export default {
 		},
 	},
 
-	data () {
-		return {
-			states: { STATE_UNEXPLORED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED },
-		};
-	},
-
 	computed: {
+		isRevealed () {
+			return this.state === STATE_REVEALED && this.nearMineCount ;
+		},
+
+		isFlagged () {
+			return this.state === STATE_FLAGGED;
+		},
+
+		isQuestioned () {
+			return this.state === STATE_QUESTIONED;
+		},
+
+		isDetonated () {
+			return this.state === STATE_DETONATED;
+		},
+
 		stateClasses () {
 			let stateClass = '';
 			switch (this.state) {
@@ -97,16 +103,6 @@ export default {
 			}
 
 			return stateClass;
-		},
-	},
-
-	methods: {
-		mark (event) {
-			console.log('mark', event);
-		},
-
-		reveal (event) {
-			console.log('reveal', event);
 		},
 	},
 };

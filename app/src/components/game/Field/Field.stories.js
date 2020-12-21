@@ -41,12 +41,6 @@ Flagged.args = {
 	state: STATE_FLAGGED,
 };
 
-export const Revealed = Template.bind({});
-Revealed.args = {
-	state: STATE_REVEALED,
-	nearMineCount: 1,
-};
-
 export const Questioned = Template.bind({});
 Questioned.args = {
 	state: STATE_QUESTIONED,
@@ -56,3 +50,4 @@ export const Detonated = Template.bind({});
 Detonated.args = {
 	state: STATE_DETONATED,
 };
+
