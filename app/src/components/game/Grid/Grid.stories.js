@@ -9,6 +9,24 @@ for (let i = 0; i < 25; i+=1) {
 export default {
 	title: 'Game/Grid',
 	component: Grid,
+	argTypes: {
+		fieldCount: {
+			control: {
+				type: 'range',
+				min: 9,
+				max: 144,
+				step: 1,
+			},
+		},
+		mineCount: {
+			control: {
+				type: 'range',
+				min: 9,
+				max: 144,
+				step: 1,
+			},
+		},
+	},
 };
 
 const Template = (args, { argTypes }) => ({
@@ -21,5 +39,6 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-	fields,
+	fieldCount: 64,
+	mineCount: 8,
 };
