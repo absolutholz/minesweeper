@@ -7,7 +7,7 @@
 		type="button"
 	>
 		<span
-			v-if="state === states.STATE_REVEALED"
+			v-if="state === states.STATE_REVEALED && nearMineCount"
 		>{{ nearMineCount }}</span>
 		<svg-flagged
 			v-else-if="state === states.STATE_FLAGGED"
@@ -33,13 +33,13 @@ import SvgDetonated from '@mdi/svg/svg/mine.svg';
 import SvgFlagged from '@mdi/svg/svg/flag-triangle.svg';
 import SvgQuestioned from '@mdi/svg/svg/help.svg';
 
-export const STATE_UNDISCOVERED = 'undiscovered';
+export const STATE_UNEXPLORED = 'unexplored';
 export const STATE_REVEALED = 'revealed';
 export const STATE_FLAGGED = 'flagged';
 export const STATE_QUESTIONED = 'questioned';
 export const STATE_DETONATED = 'detonated';
 
-const states = [ STATE_UNDISCOVERED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED ];
+const states = [ STATE_UNEXPLORED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED ];
 
 export default {
 	name: 'Field',
@@ -52,7 +52,7 @@ export default {
 
 	props: {
 		state: {
-			default: STATE_UNDISCOVERED,
+			default: STATE_UNEXPLORED,
 			required: false,
 			type: String,
 			validator: function(value) {
@@ -69,7 +69,7 @@ export default {
 
 	data () {
 		return {
-			states: { STATE_UNDISCOVERED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED },
+			states: { STATE_UNEXPLORED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED },
 		};
 	},
 

@@ -1,4 +1,4 @@
-import Field, { STATE_UNDISCOVERED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED } from '.';
+import Field, { STATE_UNEXPLORED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED } from '.';
 
 export default {
 	title: 'Game/Field',
@@ -7,7 +7,7 @@ export default {
 		state: {
 			control: {
 				type: 'select',
-				options: [ STATE_UNDISCOVERED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED ],
+				options: [ STATE_UNEXPLORED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED ],
 			},
 		},
 		nearMineCount: {
@@ -33,7 +33,7 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-	state: STATE_UNDISCOVERED,
+	state: STATE_UNEXPLORED,
 };
 
 export const Flagged = Template.bind({});
