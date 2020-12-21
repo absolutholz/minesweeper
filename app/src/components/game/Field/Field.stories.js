@@ -1,4 +1,4 @@
-import Field, { STATE_UNDISCOVERED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED } from '.';
+import Field, { STATE_UNDISCOVERED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED } from '.';
 
 export default {
 	title: 'Game/Field',
@@ -7,7 +7,15 @@ export default {
 		state: {
 			control: {
 				type: 'select',
-				options: [ STATE_UNDISCOVERED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED ],
+				options: [ STATE_UNDISCOVERED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED ],
+			},
+		},
+		nearMineCount: {
+			control: {
+				type: 'range',
+				min: 0,
+				max: 8,
+				step: 1,
 			},
 		},
 	},
@@ -17,7 +25,9 @@ const Template = (args, { argTypes }) => ({
 	components: { Field },
 	props: Object.keys(argTypes),
 	template:  `
-		<field v-bind="$props" />
+		<div style="width: 50px;">
+			<field v-bind="$props" />
+		</div>
 	`,
 });
 
@@ -29,6 +39,12 @@ Default.args = {
 export const Flagged = Template.bind({});
 Flagged.args = {
 	state: STATE_FLAGGED,
+};
+
+export const Revealed = Template.bind({});
+Revealed.args = {
+	state: STATE_REVEALED,
+	nearMineCount: 1,
 };
 
 export const Questioned = Template.bind({});
