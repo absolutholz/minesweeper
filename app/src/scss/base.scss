@@ -1,0 +1,114 @@
+@import "~semantic-reboot/src/reboot-root";
+@import "~semantic-reboot/src/reboot-html";
+@import "~semantic-reboot/src/reboot-body";
+@import "~semantic-reboot/src/reboot-interactions";
+@import "~semantic-reboot/src/reboot-anchors";
+@import "~semantic-reboot/src/reboot-form-elements";
+
+@mixin theme-light () {
+	--surface: #fffff8;
+	--on-surface: #11111a;
+	--primary: #6200ea;
+	--on-primary: #fff;
+}
+
+@mixin theme-dark () {
+	--surface: #11111a;
+	--on-surface: #fffff8;
+	--primary: #b388ff;
+	--on-primary: #000;
+}
+
+:root {
+	--spacing-micro: 0.25rem;
+	--spacing-mini: 0.5rem;
+	--spacing-base: 1rem;
+	--spacing-mega: 1.5rem;
+	--spacing-macro: 3rem;
+
+	--typo-size-micro: 0.75rem;
+	--typo-size-mini: 0.875rem;
+	--typo-size-base: 1rem;
+	--typo-size-mega: 1.25rem;
+	--typo-size-macro: 1.75rem;
+
+	@media (min-width: 20rem) {
+		--typo-size-micro: 0.875rem;
+		--typo-size-mini: 1rem;
+		--typo-size-base: 1.125rem;
+		--typo-size-meag: 1.5rem;
+		--typo-size-macro: 2rem;
+	}
+
+	background: var(--surface);
+	color: var(--on-surface);
+	overflow-y: auto;
+
+	&,
+	&.t-light {
+		@include theme-light();
+	}
+
+	// &.t-dark {
+	// 	@include theme-dark();
+	// }
+
+	// @media (prefers-color-scheme: dark) {
+	// 	@include theme-dark();
+	// }
+}
+
+body {
+	overscroll-behavior: none;
+	font-size: var(--typo-size-base);
+}
+
+path:not([fill]) {
+	fill: currentColor;
+}
+
+// RESET: button
+button {
+	background: none;
+	border: 0;
+	border-radius: 0;
+	color: inherit;
+	display: inline-block;
+	font: inherit;
+	margin: 0;
+	padding: 0;
+	text-align: inherit;
+	width: auto;
+}
+
+// RESET: input, select, textarea
+input:not([type="radio"]):not([type="checkbox"]),
+textarea,
+select {
+	background: none;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	color: inherit;
+	font: inherit;
+	padding: 0.25em 0.5em;
+	width: 100%;
+}
+
+// RESET: figure
+figure {
+	margin: 0;
+}
+
+// RESET the RESET: legend
+legend {
+	display: block;
+	float: none;
+}
+
+.icon {
+	fill: currentColor;
+	font-size: 1.25em;
+	height: 1em;
+	vertical-align: text-bottom;
+}

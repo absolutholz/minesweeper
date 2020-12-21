@@ -1,0 +1,19 @@
+
+version: '3'
+
+services:
+  minesweeper-ui:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+      - "8080:8080"
+      - "6006:6006"
+    container_name: minesweeper-ui
+    volumes:
+       - ./app:/usr/src/app
+       - /usr/src/app/node_modules
+    # command: "tail -f /dev/null"
+    command: bash -c "vue ui -H 0.0.0.0"
+    # command: ["npm", "run", "serve"]
