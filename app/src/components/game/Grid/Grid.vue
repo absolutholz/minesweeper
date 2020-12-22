@@ -5,10 +5,18 @@
 		:style="`--columns: ${ columns };`"
 	>
 		<li v-for="(field, index) in fields" :key="index">
-			<field
-				:state="field.mine ? 'detonated' : 'revealed'"
-				:nearMineCount="field.nearMineCount"
-			/>
+			<button
+				@click.prevent="reveal(field)"
+				@contextmenu.prevent="mark(field)"
+				class="grid__field-btn"
+			>
+				<!-- :disabled="field.state === STATE_REVEALED" -->
+				<field
+					:state="field.state"
+					:nearMineCount="field.nearMineCount"
+				/>
+			</button>
+
 		</li>
 	</list-unstyled>
 </template>
@@ -18,7 +26,7 @@ import Field from './../Field';
 import ListUnstyled from './../../ListUnstyled';
 
 import shuffle from './../../../js/array-shuffle';
-import { STATE_UNEXPLORED } from '../Field/Field.vue';
+import { STATE_UNEXPLORED, STATE_REVEALED, STATE_FLAGGED, STATE_QUESTIONED, STATE_DETONATED } from '../Field/Field.vue';
 
 export default {
 	name: 'Grid',
@@ -42,13 +50,44 @@ export default {
 
 	data () {
 		return {
-			fieldsByRow: [],
+			fields: [],
 			fieldsByCol: [],
 		};
 	},
 
 	computed: {
-		fields () {
+		columns () {
+			return Math.ceil(Math.sqrt(this.fieldCount));
+		},
+
+		rows () {
+			return Math.ceil(this.fieldCount / this.columns);
+		},
+	},
+
+	methods: {
+		mark (field) {
+			switch (field.state) {
+				case STATE_UNEXPLORED:
+					field.state = STATE_FLAGGED;
+					break;
+				case STATE_FLAGGED:
+					field.state = STATE_QUESTIONED;
+					break;
+				default:
+					field.state = STATE_UNEXPLORED;
+			}
+		},
+
+		reveal (field) {
+			if (!field.mine) {
+				field.state = STATE_REVEALED;
+			} else {
+				field.state = STATE_DETONATED;
+			}
+		},
+
+		createFields () {
 			let fields = [];
 			for (let i = 0; i < this.fieldCount; i += 1) {
 				fields.push({
@@ -65,11 +104,6 @@ export default {
 				field.row = Math.floor(index / this.columns);
 				field.id = `${ field.col }x${ field.row }`;
 
-				if (!this.fieldsByRow[field.row]) {
-					this.fieldsByRow[field.row] = [];
-				}
-				this.fieldsByRow[field.row].push(field);
-
 				if (!this.fieldsByCol[field.col]) {
 					this.fieldsByCol[field.col] = [];
 				}
@@ -83,9 +117,9 @@ export default {
 				const nextCol = field.col + 1;
 
 				const isFirstRow = prevRow < 0;
-				const isLastRow = nextRow > this.fieldsByRow.length- 1;
+				const isLastRow = nextRow > this.rows - 1;
 				const isFirstCol = prevCol < 0;
-				const isLastCol = nextCol > this.fieldsByCol.length- 1;
+				const isLastCol = nextCol > this.columns - 1;
 
 				if (field.mine) {
 					// above & left
@@ -125,16 +159,12 @@ export default {
 				}
 			});
 
-			return fields;
+			this.fields = fields;
 		},
+	},
 
-		columns () {
-			return Math.ceil(Math.sqrt(this.fieldCount));
-		},
-
-		rows () {
-			return Math.ceil(this.fieldCount / this.columns);
-		},
+	mounted () {
+		this.createFields();
 	},
 };
 </script>
@@ -143,10 +173,15 @@ export default {
 .grid {
 	display: grid;
 	grid-auto-rows: 50px;
-	grid-gap: 0.125rem;
+	grid-gap: 0.5rem;
 	grid-template-columns: repeat(
 		var(--columns),
 		50px
 	);
+
+	&__field-btn {
+		height: 100%;
+		width: 100%;
+	}
 }
 </style>
