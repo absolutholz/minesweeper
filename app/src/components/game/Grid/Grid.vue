@@ -51,6 +51,7 @@ export default {
 		return {
 			fields: [],
 			fieldsByCol: [],
+			flags: 0,
 		};
 	},
 
@@ -70,9 +71,13 @@ export default {
 				switch (field.state) {
 					case STATE_UNEXPLORED:
 						field.state = STATE_FLAGGED;
+						this.flags += 1;
+						this.$emit('update.flags', { flags: this.flags });
 						break;
 					case STATE_FLAGGED:
 						field.state = STATE_QUESTIONED;
+						this.flags -= 1;
+						this.$emit('update.flags', { flags: this.flags });
 						break;
 					default:
 						field.state = STATE_UNEXPLORED;
@@ -213,6 +218,12 @@ export default {
 			});
 
 			this.fields = fields;
+		},
+
+		reset () {
+			this.fields = [];
+			this.fieldsByCol = [];
+			this.flags = 0;
 		},
 	},
 
