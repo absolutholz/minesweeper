@@ -65,15 +65,17 @@ export default {
 
 	methods: {
 		mark (field) {
-			switch (field.state) {
-				case STATE_UNEXPLORED:
-					field.state = STATE_FLAGGED;
-					break;
-				case STATE_FLAGGED:
-					field.state = STATE_QUESTIONED;
-					break;
-				default:
-					field.state = STATE_UNEXPLORED;
+			if (field.state !== STATE_REVEALED) {
+				switch (field.state) {
+					case STATE_UNEXPLORED:
+						field.state = STATE_FLAGGED;
+						break;
+					case STATE_FLAGGED:
+						field.state = STATE_QUESTIONED;
+						break;
+					default:
+						field.state = STATE_UNEXPLORED;
+				}
 			}
 		},
 
@@ -85,9 +87,7 @@ export default {
 					if (field.nearMineCount === 0) {
 						setTimeout(() => {
 							field.neighbors.forEach((neighbor) => {
-								// if (neighbor.state === STATE_UNEXPLORED) {
-									this.reveal(neighbor);
-								// }
+								this.reveal(neighbor);
 							});
 						}, 25);
 					}
