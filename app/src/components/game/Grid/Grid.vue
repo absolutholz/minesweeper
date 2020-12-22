@@ -8,6 +8,7 @@
 			<button
 				@click.prevent="reveal(field)"
 				@contextmenu.prevent="mark(field)"
+				@dblclick.prevent="handleDoubleClick(field)"
 				class="grid__field-btn"
 			>
 				<field
@@ -80,20 +81,30 @@ export default {
 		},
 
 		reveal (field) {
+			// console.log('single click', event);
 			if (field.state === STATE_UNEXPLORED) {
 				if (!field.mine) {
 					field.state = STATE_REVEALED;
 
 					if (field.nearMineCount === 0) {
 						setTimeout(() => {
-							field.neighbors.forEach((neighbor) => {
-								this.reveal(neighbor);
-							});
+							field.neighbors.forEach((neighbor) => this.reveal(neighbor));
 						}, 25);
 					}
 
 				} else {
 					field.state = STATE_DETONATED;
+				}
+			}
+		},
+
+		handleDoubleClick (field) {
+			// console.log('double click', event, field);
+			if (field.state === STATE_REVEALED && field.nearMineCount > 0) {
+				// console.log(field.nearMineCount, field.neighbors);
+				const flaggedFields = field.neighbors.filter((neighbor) => neighbor.state === STATE_FLAGGED);
+				if (flaggedFields.length === field.nearMineCount) {
+					field.neighbors.forEach((neighbor) => this.reveal(neighbor));
 				}
 			}
 		},
