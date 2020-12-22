@@ -10,13 +10,11 @@
 				@contextmenu.prevent="mark(field)"
 				class="grid__field-btn"
 			>
-				<!-- :disabled="field.state === STATE_REVEALED" -->
 				<field
 					:state="field.state"
 					:nearMineCount="field.nearMineCount"
 				/>
 			</button>
-
 		</li>
 	</list-unstyled>
 </template>
@@ -80,10 +78,23 @@ export default {
 		},
 
 		reveal (field) {
-			if (!field.mine) {
-				field.state = STATE_REVEALED;
-			} else {
-				field.state = STATE_DETONATED;
+			if (field.state === STATE_UNEXPLORED) {
+				if (!field.mine) {
+					field.state = STATE_REVEALED;
+
+					if (field.nearMineCount === 0) {
+						setTimeout(() => {
+							field.neighbors.forEach((neighbor) => {
+								// if (neighbor.state === STATE_UNEXPLORED) {
+									this.reveal(neighbor);
+								// }
+							});
+						}, 25);
+					}
+
+				} else {
+					field.state = STATE_DETONATED;
+				}
 			}
 		},
 
@@ -94,6 +105,7 @@ export default {
 					state: STATE_UNEXPLORED,
 					mine: i < this.mineCount,
 					nearMineCount: 0,
+					neighbors: [],
 				});
 			}
 
@@ -110,7 +122,7 @@ export default {
 				this.fieldsByCol[field.col].push(field);
 			});
 
-			fields.forEach((field, index) => {
+			fields.forEach((field) => {
 				const prevRow = field.row - 1;
 				const nextRow = field.row + 1;
 				const prevCol = field.col - 1;
@@ -121,41 +133,71 @@ export default {
 				const isFirstCol = prevCol < 0;
 				const isLastCol = nextCol > this.columns - 1;
 
-				if (field.mine) {
-					// above & left
-					if (!isFirstCol && !isFirstRow) {
-						this.fieldsByCol[field.col - 1][field.row - 1].nearMineCount += 1;
+				// above & left
+				if (!isFirstCol && !isFirstRow) {
+					const neighbor = this.fieldsByCol[field.col - 1][field.row - 1];
+					if (neighbor.mine) {
+						field.nearMineCount += 1;
 					}
-					// above & center
-					if (!isFirstRow) {
-						this.fieldsByCol[field.col][field.row - 1].nearMineCount += 1;
+					field.neighbors.push(neighbor);
+				}
+				// above & center
+				if (!isFirstRow) {
+					const neighbor = this.fieldsByCol[field.col][field.row - 1];
+					if (neighbor.mine) {
+						field.nearMineCount += 1;
 					}
-					// above & right
-					if (!isLastCol && !isFirstRow) {
-						this.fieldsByCol[field.col + 1][field.row - 1].nearMineCount += 1;
+					field.neighbors.push(neighbor);
+				}
+				// above & right
+				if (!isLastCol && !isFirstRow) {
+					const neighbor = this.fieldsByCol[field.col + 1][field.row - 1];
+					if (neighbor.mine) {
+						field.nearMineCount += 1;
 					}
+					field.neighbors.push(neighbor);
+				}
 
-					// left
-					if (!isFirstCol) {
-						this.fieldsByCol[field.col - 1][field.row].nearMineCount += 1;
+				// left
+				if (!isFirstCol) {
+					const neighbor = this.fieldsByCol[field.col - 1][field.row];
+					if (neighbor.mine) {
+						field.nearMineCount += 1;
 					}
-					// right
-					if (!isLastCol) {
-						this.fieldsByCol[field.col + 1][field.row].nearMineCount += 1;
+					field.neighbors.push(neighbor);
+				}
+				// right
+				if (!isLastCol) {
+					const neighbor = this.fieldsByCol[field.col + 1][field.row];
+					if (neighbor.mine) {
+						field.nearMineCount += 1;
 					}
+					field.neighbors.push(neighbor);
+				}
 
-					// below & left
-					if (!isFirstCol && !isLastRow) {
-						this.fieldsByCol[field.col - 1][field.row + 1].nearMineCount += 1;
+				// below & left
+				if (!isFirstCol && !isLastRow) {
+					const neighbor = this.fieldsByCol[field.col - 1][field.row + 1];
+					if (neighbor.mine) {
+						field.nearMineCount += 1;
 					}
-					// below & center
-					if (!isLastRow) {
-						this.fieldsByCol[field.col][field.row + 1].nearMineCount += 1;
+					field.neighbors.push(neighbor);
+				}
+				// below & center
+				if (!isLastRow) {
+					const neighbor = this.fieldsByCol[field.col][field.row + 1];
+					if (neighbor.mine) {
+						field.nearMineCount += 1;
 					}
-					// below & right
-					if (!isLastCol && !isLastRow) {
-						this.fieldsByCol[field.col + 1][field.row + 1].nearMineCount += 1;
+					field.neighbors.push(neighbor);
+				}
+				// below & right
+				if (!isLastCol && !isLastRow) {
+					const neighbor = this.fieldsByCol[field.col + 1][field.row + 1];
+					if (neighbor.mine) {
+						field.nearMineCount += 1;
 					}
+					field.neighbors.push(neighbor);
 				}
 			});
 

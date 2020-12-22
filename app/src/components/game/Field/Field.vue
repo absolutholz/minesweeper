@@ -122,7 +122,9 @@ export default {
 	justify-content: center;
 	padding-bottom: 100%;
 	position: relative;
+	transition: background 200ms;
 	width: 100%;
+	will-change: background;
 
 	> * {
 		height: 1em;
