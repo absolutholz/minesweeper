@@ -156,7 +156,8 @@ export default {
 	}
 
 	&--detonated {
-
+		background: #fff;
+		box-shadow: none;
 	}
 
 	&--near {
