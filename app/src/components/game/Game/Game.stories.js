@@ -1,8 +1,8 @@
-import Grid from '.';
+import Game from '.';
 
 export default {
-	title: 'Game/Grid',
-	component: Grid,
+	title: 'Game/Game',
+	component: Game,
 	argTypes: {
 		fieldCount: {
 			control: {
@@ -24,10 +24,10 @@ export default {
 };
 
 const Template = (args, { argTypes }) => ({
-	components: { Grid },
+	components: { Game },
 	props: Object.keys(argTypes),
 	template:  `
-		<grid v-bind="$props" />
+		<game v-bind="$props" />
 	`,
 });
 

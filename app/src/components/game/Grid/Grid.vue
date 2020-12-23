@@ -72,12 +72,12 @@ export default {
 					case STATE_UNEXPLORED:
 						field.state = STATE_FLAGGED;
 						this.flags += 1;
-						this.$emit('update.flags', { flags: this.flags });
+						this.$emit('update', { flags: this.flags });
 						break;
 					case STATE_FLAGGED:
 						field.state = STATE_QUESTIONED;
 						this.flags -= 1;
-						this.$emit('update.flags', { flags: this.flags });
+						this.$emit('update', { flags: this.flags });
 						break;
 					default:
 						field.state = STATE_UNEXPLORED;
