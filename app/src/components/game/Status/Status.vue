@@ -41,8 +41,17 @@ export default {
 	justify-content: space-between;
 	width: 100%;
 
+	@media (orientation: landscape) {
+		flex-direction: column;
+	}
+
 	&__time {
 		margin-right: var(--spacing-base);
+
+		@media (orientation: landscape) {
+			margin-bottom: var(--spacing-base);
+			margin-right: 0;
+		}
 	}
 
 	&__mines {
