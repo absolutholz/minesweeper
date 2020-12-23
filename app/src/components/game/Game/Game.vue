@@ -4,6 +4,7 @@
 			@detonated="loseGame"
 			@revealed="updateRevealedCount"
 			@update="updateMineCount"
+			:disable="isGameOver"
 			:fieldCount="fieldCount"
 			:mineCount="mineCount"
 		/>
@@ -12,6 +13,10 @@
 			v-if="isPaused"
 			@click.native="resume"
 		/>
+
+		<win-screen v-if="isGameWon" />
+
+		<lose-screen v-if="isGameLost" />
 
 		<template #status>
 			<status
@@ -37,8 +42,10 @@
 <script>
 import Board from './../Board';
 import Grid from './../Grid';
+import LoseScreen from './../LoseScreen';
 import PauseScreen from './../PauseScreen';
 import Status from './../Status';
+import WinScreen from './../WinScreen';
 
 import SvgHome from '@mdi/svg/svg/home.svg';
 import SvgPause from '@mdi/svg/svg/pause.svg';
@@ -57,8 +64,10 @@ export default {
 	components: {
 		Board,
 		Grid,
+		LoseScreen,
 		PauseScreen,
 		Status,
+		WinScreen,
 
 		SvgHome,
 		SvgPause,
@@ -102,6 +111,18 @@ export default {
 		isStopped () {
 			return this.state !== STATE_GAME_PLAYING && this.state !== STATE_GAME_PAUSED;
 		},
+
+		isGameOver () {
+			return this.state === STATE_GAME_WON || this.state === STATE_GAME_LOST;
+		},
+
+		isGameWon () {
+			return this.state === STATE_GAME_WON;
+		},
+
+		isGameLost () {
+			return this.state === STATE_GAME_LOST;
+		}
 	},
 
 	methods: {
@@ -112,7 +133,7 @@ export default {
 		updateRevealedCount () {
 			this.revealedCount += 1;
 
-			if (this.revealedCount + this.mineCount === this.fieldCount) {
+			if (this.flagCount === this.mineCount && this.revealedCount + this.mineCount === this.fieldCount) {
 				this.winGame();
 			}
 		},
