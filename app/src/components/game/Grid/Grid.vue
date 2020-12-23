@@ -10,6 +10,7 @@
 				@contextmenu.prevent="mark(field)"
 				@dblclick.prevent="handleDoubleClick(field)"
 				class="grid__field-btn"
+				:disabled="disable"
 			>
 				<field
 					:state="field.state"
@@ -44,6 +45,11 @@ export default {
 		mineCount: {
 			required: true,
 			type: Number,
+		},
+
+		disable: {
+			required: true,
+			type: Boolean,
 		},
 	},
 
