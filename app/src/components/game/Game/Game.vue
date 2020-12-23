@@ -1,12 +1,17 @@
 <template>
 	<board>
 		<grid
+			@detonated="loseGame"
+			@revealed="updateRevealedCount"
 			@update="updateMineCount"
 			:fieldCount="fieldCount"
 			:mineCount="mineCount"
 		/>
 
-		<pause-screen v-if="isPaused" />
+		<pause-screen
+			v-if="isPaused"
+			@click.native="resume"
+		/>
 
 		<template #status>
 			<status
@@ -43,7 +48,8 @@ import Timer from './../../../js/Timer';
 export const STATE_GAME_NOT_STARTED = 'game_not_started';
 export const STATE_GAME_PLAYING = 'game_playing';
 export const STATE_GAME_PAUSED = 'game_paused';
-export const STATE_GAME_OVER = 'game_over';
+export const STATE_GAME_WON = 'game_won';
+export const STATE_GAME_LOST = 'game_lost';
 
 export default {
 	name: 'Game',
@@ -72,6 +78,7 @@ export default {
 
 	data () {
 		return {
+			revealedCount: 0,
 			flagCount: 0,
 			secondsPlayed: 0,
 			timer: null,
@@ -102,6 +109,24 @@ export default {
 			this.flagCount = data.flags;
 		},
 
+		updateRevealedCount () {
+			this.revealedCount += 1;
+
+			if (this.revealedCount + this.mineCount === this.fieldCount) {
+				this.winGame();
+			}
+		},
+
+		loseGame () {
+			this.timer.stop();
+			this.state = STATE_GAME_LOST;
+		},
+
+		winGame () {
+			this.timer.stop();
+			this.state = STATE_GAME_WON;
+		},
+
 		start () {
 			if (!this.timer) {
 				this.timer = Timer(1000);
@@ -123,11 +148,6 @@ export default {
 		resume () {
 			this.timer.start();
 			this.state = STATE_GAME_PLAYING;
-		},
-
-		end () {
-			this.timer.stop();
-			this.state = STATE_GAME_OVER;
 		},
 	},
 

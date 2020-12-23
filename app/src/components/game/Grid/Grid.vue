@@ -97,8 +97,11 @@ export default {
 						}, 25);
 					}
 
+					this.$emit('revealed');
+
 				} else {
 					field.state = STATE_DETONATED;
+					this.$emit('detonated');
 				}
 			}
 		},
