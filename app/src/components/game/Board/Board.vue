@@ -20,8 +20,10 @@ export default {
 
 <style lang="scss">
 .board {
+	--gap: var(--spacing-mini, 0.5rem);
+
 	display: grid;
-	grid-gap: 1rem;
+	grid-gap: var(--gap);
 	grid-template-areas:
 		"field"
 		"status"
@@ -34,7 +36,7 @@ export default {
 			"field status"
 			"field actions";
 		grid-template-columns: 1fr auto;
-		grid-template-rows: 1fr auto auto;
+		grid-template-rows: 1fr auto;
 	}
 
 	bottom: 0;
@@ -45,10 +47,10 @@ export default {
 	top: 0;
 
 	background: white;
-	padding: 1rem;
+	padding: var(--gap);
 
 	@media (min-width: 900px) {
-		--gap: var(--spacing-base);
+		--gap: var(--spacing-base, 1rem);
 	}
 
 	&__inset {
@@ -59,7 +61,7 @@ export default {
 			inset 0 4px 5px 0 rgba(0, 0, 0, 0.14),
 			inset 0 1px 10px 0 rgba(0, 0, 0, 0.12);
 
-		padding: 1rem;
+		padding: var(--gap);
 		position: relative;
 		z-index: 0;
 

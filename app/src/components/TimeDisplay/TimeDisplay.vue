@@ -91,7 +91,7 @@ export default {
 	}
 
 	&__icon {
-		font-size: 1.125em;
+
 	}
 }
 </style>
