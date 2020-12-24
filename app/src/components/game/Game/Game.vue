@@ -128,6 +128,10 @@ export default {
 	methods: {
 		updateMineCount (data) {
 			this.flagCount = data.flags;
+
+			if (this.flagCount === this.mineCount && this.revealedCount + this.mineCount === this.fieldCount) {
+				this.winGame();
+			}
 		},
 
 		updateRevealedCount () {
