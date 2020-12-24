@@ -33,6 +33,7 @@ const Template = (args, { argTypes }) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-	fieldCount: 64,
-	mineCount: 8,
+	fieldCount: 81,
+	mineCount: 10,
+	disable: false,
 };
