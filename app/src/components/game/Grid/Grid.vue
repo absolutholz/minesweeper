@@ -114,8 +114,8 @@ export default {
 		},
 
 		reset () {
-			this.fields = [];
 			this.flags = 0;
+			this.createFields();
 		},
 
 		createFields () {

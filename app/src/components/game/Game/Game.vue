@@ -7,6 +7,7 @@
 			:disable="isGameOver"
 			:fieldCount="fieldCount"
 			:mineCount="mineCount"
+			ref="grid"
 		/>
 
 		<pause-screen
@@ -29,12 +30,16 @@
 			<button
 				@click="isPaused ? resume() : pause()"
 				:disabled="isStopped"
+				type="button"
 			>
 				<svg-pause class="icon" />
 			</button>
-			<span>
-				<svg-home class="icon" />
-			</span>
+			<button
+				@click="restart"
+				type="button"
+			>
+				<svg-restart class="icon" />
+			</button>
 		</template>
 	</board>
 </template>
@@ -47,7 +52,7 @@ import PauseScreen from './../PauseScreen';
 import Status from './../Status';
 import WinScreen from './../WinScreen';
 
-import SvgHome from '@mdi/svg/svg/home.svg';
+import SvgRestart from '@mdi/svg/svg/restart.svg';
 import SvgPause from '@mdi/svg/svg/pause.svg';
 
 import Timer from './../../../js/Timer';
@@ -69,7 +74,7 @@ export default {
 		Status,
 		WinScreen,
 
-		SvgHome,
+		SvgRestart,
 		SvgPause,
 	},
 
@@ -173,6 +178,19 @@ export default {
 		resume () {
 			this.timer.start();
 			this.state = STATE_GAME_PLAYING;
+		},
+
+		restart () {
+			this.state = STATE_GAME_NOT_STARTED;
+			this.timer.stop();
+
+			this.secondsPlayed = 0;
+			this.revealedCount = 0,
+			this.flagCount = 0,
+
+			this.$refs.grid.reset();
+
+			this.start();
 		},
 	},
 
