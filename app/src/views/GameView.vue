@@ -1,8 +1,8 @@
 <template>
 	<main>
 		<game
-			:fieldCount="$route.query.fieldCount * 1 || 81"
-			:mineCount="$route.query.mineCount * 1 || 10"
+			:fieldCount="fieldCount"
+			:mineCount="mineCount"
 		/>
 	</main>
 </template>
@@ -15,13 +15,29 @@ Medium	|	16x16	|	39
 Expert	|	30x16	|	95
 */
 
-import Game from './../components/game/Game';
+import Game, { SIZES, DIFFICULTIES } from './../components/game/Game';
 
 export default {
 	name: 'GameView',
 
 	components: {
 		Game,
+	},
+
+	computed: {
+		fieldCount () {
+			const sizeParam =  this.$route.query.size;
+			const size = SIZES.find((size) => size.id === sizeParam);
+			console.log(sizeParam, size);
+			return (size || SIZES[Math.floor(SIZES.length / 2)]).fieldCount;
+		},
+
+		mineCount () {
+			const difficultyParam =  this.$route.query.difficulty;
+			const difficulty = DIFFICULTIES.find((difficulty) => difficulty.id === difficultyParam);
+			console.log(difficultyParam, difficulty);
+			return Math.round(this.fieldCount * (difficulty || DIFFICULTIES[1]).mineRatio);
+		},
 	},
 };
 </script>

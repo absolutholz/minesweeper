@@ -40,6 +40,9 @@
 			>
 				<svg-restart class="icon" />
 			</button>
+			<router-link :to="{ name: 'Config' }">
+				<svg-home class="icon" />
+			</router-link>
 		</template>
 	</board>
 </template>
@@ -52,6 +55,7 @@ import PauseScreen from './../PauseScreen';
 import Status from './../Status';
 import WinScreen from './../WinScreen';
 
+import SvgHome from '@mdi/svg/svg/home.svg';
 import SvgRestart from '@mdi/svg/svg/restart.svg';
 import SvgPause from '@mdi/svg/svg/pause.svg';
 
@@ -62,6 +66,52 @@ export const STATE_GAME_PLAYING = 'game_playing';
 export const STATE_GAME_PAUSED = 'game_paused';
 export const STATE_GAME_WON = 'game_won';
 export const STATE_GAME_LOST = 'game_lost';
+
+export const SIZES = [
+	{
+		id: 'xs',
+		name: 'Extra Small - 25 fields',
+		fieldCount: 25,
+	},
+	{
+		id: 'sm',
+		name: 'Small - 49 fields',
+		fieldCount: 49,
+	},
+	{
+		id: 'md',
+		name: 'Medium - 81 fields',
+		fieldCount: 81,
+	},
+	{
+		id: 'lg',
+		name: 'Large - 121 fields',
+		fieldCount: 121,
+	},
+	{
+		id: 'xl',
+		name: 'Extra Large - 144 fields',
+		fieldCount: 144,
+	},
+];
+
+export const DIFFICULTIES = [
+	{
+		id: 'simple',
+		name: 'Simple',
+		mineRatio: 0.1,
+	},
+	{
+		id: 'medium',
+		name: 'Medium',
+		mineRatio: 0.15,
+	},
+	{
+		id: 'expert',
+		name: 'Expert',
+		mineRatio: 0.2,
+	},
+];
 
 export default {
 	name: 'Game',
@@ -74,6 +124,7 @@ export default {
 		Status,
 		WinScreen,
 
+		SvgHome,
 		SvgRestart,
 		SvgPause,
 	},
