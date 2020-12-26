@@ -1,10 +1,44 @@
 <template>
-	<div class="win-screen">Congratulations!</div>
+	<div class="win-screen">
+		<h2 class="win-screen__hdln">Congratulations!</h2>
+		<div>
+			<btn-list>
+				<btn
+					@click="$emit('restart')"
+					variant="contained"
+				>
+					<svg-restart class="icon" />
+					Play Again
+				</btn>
+				<btn
+					:to="{ name: 'Config' }"
+					variant="contained"
+				>
+					<svg-home class="icon" />
+					New Game
+				</btn>
+			</btn-list>
+		</div>
+	</div>
 </template>
 
 <script>
+import Btn from './../../Btn';
+import BtnList from './../../BtnList';
+
+import SvgHome from '@mdi/svg/svg/home.svg';
+import SvgRestart from '@mdi/svg/svg/restart.svg';
+
 export default {
 	name: 'WinScreen',
+
+	components: {
+		Btn,
+		BtnList,
+
+		SvgHome,
+		SvgRestart,
+	},
 };
 </script>
 
@@ -23,22 +57,25 @@ export default {
 	width: 100%;
 	z-index: 1;
 
-	color: white;
-	font-size: 2rem;
-	font-weight: bold;
 	padding: var(--spacing-base);
 	text-align: center;
-	text-shadow:
-		0px 0px 20px black,
-		0px 0px 10px var(--primary),
-		0px 0px 5px black;
 
-	@media (min-width: 400px) {
-		font-size: 3rem;
-	}
+	&__hdln {
+		color: white;
+		font-size: 2rem;
+		font-weight: bold;
+		text-shadow:
+			0px 0px 20px black,
+			0px 0px 10px var(--primary),
+			0px 0px 5px black;
 
-	@media (min-width: 600px) {
-		font-size: 4rem;
+		@media (min-width: 400px) {
+			font-size: 3rem;
+		}
+
+		@media (min-width: 600px) {
+			font-size: 4rem;
+		}
 	}
 }
 </style>

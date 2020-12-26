@@ -15,9 +15,15 @@
 			@click.native="resume"
 		/>
 
-		<win-screen v-if="isGameWon" />
+		<win-screen
+			v-if="isGameWon"
+			@restart="restart"
+		/>
 
-		<lose-screen v-if="isGameLost" />
+		<lose-screen
+			v-if="isGameLost"
+			@restart="restart"
+		/>
 
 		<template #status>
 			<status
@@ -27,28 +33,34 @@
 		</template>
 
 		<template #actions>
-			<button
-				@click="isPaused ? resume() : pause()"
-				:disabled="isStopped"
-				type="button"
-			>
-				<svg-pause class="icon" />
-			</button>
-			<button
-				@click="restart"
-				type="button"
-			>
-				<svg-restart class="icon" />
-			</button>
-			<router-link :to="{ name: 'Config' }">
-				<svg-home class="icon" />
-			</router-link>
+			<btn-list class="actions">
+
+				<btn
+					@click="isPaused ? resume() : pause()"
+					:disabled="isStopped"
+				>
+					<svg-pause class="icon" />
+				</btn>
+				<btn
+					@click="restart"
+				>
+					<svg-restart class="icon" />
+				</btn>
+				<btn
+					:to="{ name: 'Config' }"
+				>
+					<svg-home class="icon" />
+				</btn>
+
+			</btn-list>
 		</template>
 	</board>
 </template>
 
 <script>
 import Board from './../Board';
+import Btn from './../../Btn';
+import BtnList from './../../BtnList';
 import Grid from './../Grid';
 import LoseScreen from './../LoseScreen';
 import PauseScreen from './../PauseScreen';
@@ -118,6 +130,8 @@ export default {
 
 	components: {
 		Board,
+		Btn,
+		BtnList,
 		Grid,
 		LoseScreen,
 		PauseScreen,
@@ -250,3 +264,13 @@ export default {
 	},
 };
 </script>
+
+<style lang="scss">
+.actions {
+	--spacing-h: var(--spacing-micro);
+
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+</style>
