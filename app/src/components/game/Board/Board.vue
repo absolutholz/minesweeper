@@ -75,7 +75,7 @@ export default {
 		display: flex;
 		grid-area: field;
 		justify-content: center;
-		overflow: hidden;
+		overflow: auto;
 	}
 
 	&__status {

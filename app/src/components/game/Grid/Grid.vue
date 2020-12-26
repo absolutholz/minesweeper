@@ -243,17 +243,30 @@ export default {
 
 <style lang="scss">
 .grid {
+	--gap: 0.5rem;
+
 	display: grid;
-	grid-auto-rows: 50px;
-	grid-gap: 0.5rem;
+	grid-auto-rows: 1fr;
+	grid-gap: var(--gap);
 	grid-template-columns: repeat(
 		var(--columns),
 		50px
 	);
+	// grid-template-columns: repeat(
+	// 	var(--columns),
+	// 	Min(50px, #{"(100% / var(--columns)) - var(--gap)"})
+	// );
+	margin: 0;
+	max-height: 100%;
+	max-width: 100%;
 
 	&__field-btn {
 		height: 100%;
 		width: 100%;
+	}
+
+	> li {
+		display: flex;
 	}
 }
 </style>
