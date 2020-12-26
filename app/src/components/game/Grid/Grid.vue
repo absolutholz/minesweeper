@@ -244,13 +244,14 @@ export default {
 <style lang="scss">
 .grid {
 	--gap: 0.5rem;
+	--size: calc(50px + var(--gap));
 
 	display: grid;
-	grid-auto-rows: 1fr;
-	grid-gap: var(--gap);
+	grid-auto-rows: var(--size);
+	// grid-gap: var(--gap);
 	grid-template-columns: repeat(
 		var(--columns),
-		50px
+		var(--size)
 	);
 	// grid-template-columns: repeat(
 	// 	var(--columns),
@@ -268,6 +269,7 @@ export default {
 
 	> li {
 		display: flex;
+		padding: calc(var(--gap) / 2);
 	}
 }
 </style>
