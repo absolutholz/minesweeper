@@ -75,15 +75,11 @@ export default {
 		display: flex;
 		grid-area: field;
 		justify-content: center;
-		overflow: auto;
+		overflow: hidden;
 	}
 
 	&__status {
-		align-items: center;
-		display: flex;
-		flex-wrap: wrap;
 		grid-area: status;
-		// justify-content: space-between;
 	}
 
 	&__actions {

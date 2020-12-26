@@ -259,6 +259,7 @@ export default {
 	margin: 0;
 	max-height: 100%;
 	max-width: 100%;
+	overflow: auto;
 
 	&__field-btn {
 		height: 100%;

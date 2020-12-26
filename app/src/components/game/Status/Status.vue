@@ -36,13 +36,17 @@ export default {
 
 <style lang="scss">
 .status {
+	align-items: center;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	height: 100%;
+	justify-content: center;
 	width: 100%;
+	padding: 0.5rem 0.25rem;
 
 	@media (orientation: landscape) {
 		flex-direction: column;
+		align-items: flex-start;
 	}
 
 	&__time {
