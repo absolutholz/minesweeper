@@ -82,27 +82,32 @@ export const STATE_GAME_LOST = 'game_lost';
 export const SIZES = [
 	{
 		id: 'xs',
-		name: 'Extra Small - 25 fields',
+		name: 'Extra Small',
+		description: '25 fields',
 		fieldCount: 25,
 	},
 	{
 		id: 'sm',
-		name: 'Small - 49 fields',
+		name: 'Small',
+		description:'49 fields',
 		fieldCount: 49,
 	},
 	{
 		id: 'md',
-		name: 'Medium - 81 fields',
+		name: 'Medium',
+		description: '81 fields',
 		fieldCount: 81,
 	},
 	{
 		id: 'lg',
-		name: 'Large - 121 fields',
+		name: 'Large',
+		description:'121 fields',
 		fieldCount: 121,
 	},
 	{
 		id: 'xl',
-		name: 'Extra Large - 144 fields',
+		name: 'Extra Large',
+		description: '144 fields',
 		fieldCount: 144,
 	},
 ];
@@ -119,9 +124,14 @@ export const DIFFICULTIES = [
 		mineRatio: 0.15,
 	},
 	{
+		id: 'hard',
+		name: 'Hard',
+		mineRatio: 0.2,
+	},
+	{
 		id: 'expert',
 		name: 'Expert',
-		mineRatio: 0.2,
+		mineRatio: 0.25,
 	},
 ];
 

@@ -43,6 +43,8 @@ export default {
 	font-size: 3rem;
 	font-weight: $typography-weight-hairline;
 	line-height: 1.2;
+	margin-bottom: 0;
+	margin-top: var(--spacing-macro);
 
 	@media (min-width: 400px) {
 		font-size: 4rem;

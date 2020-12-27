@@ -5,6 +5,8 @@
 @import "~semantic-reboot/src/reboot-anchors";
 @import "~semantic-reboot/src/reboot-form-elements";
 
+@import "~scss-mixins-functions-variables/scss/typography/font-weight-variables";
+
 @mixin theme-light () {
 	--surface: #fffff8;
 	--on-surface: #11111a;
@@ -104,6 +106,14 @@ figure {
 legend {
 	display: block;
 	float: none;
+	font-weight: $typography-weight-medium;
+	margin-bottom: var(--spacing-mini);
+}
+
+// RESET: fieldset
+fieldset {
+	margin-bottom: var(--spacing-macro);
+	margin-top: var(--spacing-macro);
 }
 
 .icon {
