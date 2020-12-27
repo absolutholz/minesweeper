@@ -117,15 +117,17 @@ export default {
 
 	data () {
 		return {
-			difficulty: DIFFICULTIES[1],
+			difficulty: DIFFICULTIES.find((difficulty) => difficulty.id === window.localStorage.difficulty) || DIFFICULTIES[1],
 			difficulties: DIFFICULTIES,
-			size: SIZES[Math.floor(SIZES.length / 2)],
+			size: SIZES.find((size) => size.id === window.localStorage.size) || SIZES[Math.floor(SIZES.length / 2)],
 			sizes: SIZES,
 		};
 	},
 
 	methods: {
 		startGame () {
+			window.localStorage.size = this.size.id;
+			window.localStorage.difficulty = this.difficulty.id;
 			this.$router.push({ name: 'Game', query: { size: this.size.id, difficulty: this.difficulty.id } });
 		},
 	},
