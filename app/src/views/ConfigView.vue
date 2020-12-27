@@ -137,7 +137,7 @@ export default {
 
 .option-list {
 	> li {
-		flex: 1 1 auto;
+		flex: 0 1 auto;
 	}
 
 	&__wrapper {
