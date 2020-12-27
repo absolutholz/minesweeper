@@ -43,6 +43,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "~scss-mixins-functions-variables/scss/typography/font-weight-variables";
+
 .win-screen {
 	align-items: center;
 	bottom: 0;
@@ -63,7 +65,7 @@ export default {
 	&__hdln {
 		color: white;
 		font-size: 2rem;
-		font-weight: bold;
+		font-weight: $typography-weight-medium;
 		text-shadow:
 			0px 0px 20px black,
 			0px 0px 10px var(--primary),

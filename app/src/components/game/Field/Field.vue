@@ -109,6 +109,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "~scss-mixins-functions-variables/scss/typography/font-weight-variables";
+
 .field {
 	align-content: center;
 	background: #eee;
@@ -142,7 +144,7 @@ export default {
 	&--revealed {
 		background: #fff;
 		box-shadow: none;
-		font-weight: bold;
+		font-weight: $typography-weight-bold;
 		line-height: 1;
 		text-align: center;
 	}

@@ -79,6 +79,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "~scss-mixins-functions-variables/scss/typography/font-weight-variables";
+
 // https://material.io/components/buttons
 .btn {
 	--btn-surface: transparent;
@@ -91,7 +93,7 @@ export default {
 	color: var(--btn-on-surface);
 	display: inline-flex;
 	font-size: 0.875em;
-	font-weight: 500;
+	font-weight: $typography-weight-medium;
 	justify-content: center;
 	letter-spacing: 0.1575ch;
 	line-height: 1;
