@@ -158,7 +158,7 @@ export default {
 	}
 
 	&--detonated {
-		background: #fff;
+		background: radial-gradient(#FDD835 25%, #FF6F00, #B71C1C);
 		box-shadow:
 			inset 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
 			inset 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
