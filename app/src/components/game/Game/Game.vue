@@ -167,11 +167,12 @@ export default {
 
 	data () {
 		return {
-			revealedCount: 0,
 			flagCount: 0,
+			revealedCount: 0,
+			score: 0,
 			secondsPlayed: 0,
-			timer: null,
 			state: STATE_GAME_NOT_STARTED,
+			timer: null,
 		};
 	},
 
@@ -259,9 +260,10 @@ export default {
 			this.state = STATE_GAME_NOT_STARTED;
 			this.timer.stop();
 
-			this.secondsPlayed = 0;
-			this.revealedCount = 0,
 			this.flagCount = 0,
+			this.revealedCount = 0,
+			this.score = 0;
+			this.secondsPlayed = 0;
 
 			this.$refs.grid.reset();
 
@@ -270,6 +272,7 @@ export default {
 	},
 
 	mounted () {
+		window.addEventListener('blur', this.pause);
 		this.start();
 	},
 };
