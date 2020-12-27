@@ -165,37 +165,38 @@ export default {
 			inset 0px 1px 5px 0px rgba(0,0,0,.12);
 	}
 
+	// https://material.io/design/color/the-color-system.html#tools-for-picking-colors
 	&--near {
 		&-1 {
-			color: blue;
+			color: #0277BD;
 		}
 
 		&-2{
-			color: green;
+			color: #689F38;
 		}
 
 		&-3 {
-			color: goldenrod;
+			color: #C62828;
 		}
 
 		&-4 {
-			color: orange;
+			color: #0D47A1;
 		}
 
 		&-5 {
-			color: red;
+			color: #C62828;
 		}
 
 		&-6 {
-			color: purple;
+			color: #2E7D32;
 		}
 
 		&-7 {
-			color: brown;
+			color: #512DA8;
 		}
 
 		&-8 {
-			color: black;
+			color: #FF6F00;
 		}
 	}
 }
