@@ -135,6 +135,76 @@ export const DIFFICULTIES = [
 	},
 ];
 
+const DB_NAME = 'minesweeperHighScores';
+const DB_VERSION = 1;
+const DB_STORE_NAME = 'highScores';
+
+async function getDb () {
+	return new Promise((resolve, reject) => {
+		let request = window.indexedDB.open(DB_NAME, DB_VERSION);
+
+		request.onerror = (event) => {
+			console.log('Error opening db', event);
+			reject('Error');
+		};
+
+		request.onsuccess = (event) => {
+			resolve(event.target.result);
+		};
+
+		request.onupgradeneeded = (event) => {
+			console.log('onupgradeneeded');
+			let db = event.target.result;
+			// let objectStore = db.createObjectStore(DB_STORE_NAME, { autoIncrement: true, keyPath: 'id' });
+			db.createObjectStore(DB_STORE_NAME, { autoIncrement: true, keyPath: 'id' });
+		};
+	});
+}
+
+async function getHighScores (db) {
+	return new Promise((resolve, reject) => {
+		let trans = db.transaction([ DB_STORE_NAME ], 'readonly');
+
+		trans.oncomplete = () => {
+			resolve(highScores);
+		};
+
+		trans.onerror = (event) => {
+			console.log('Error getting high scores', event);
+			reject('Error');
+		};
+
+		let store = trans.objectStore(DB_STORE_NAME);
+		let highScores = [];
+
+		store.openCursor().onsuccess = (event) => {
+			let cursor = event.target.result;
+			if (cursor) {
+				highScores.push(cursor.value);
+				cursor.continue();
+			}
+		};
+	});
+}
+
+async function addHighScore(db, highScore) {
+	return new Promise((resolve, reject) => {
+		let trans = db.transaction([ DB_STORE_NAME ], 'readwrite');
+
+		trans.oncomplete = () => {
+			resolve();
+		};
+
+		trans.onerror = (event) => {
+			console.log('Error adding high score', event);
+			reject('Error');
+		};
+
+		let store = trans.objectStore(DB_STORE_NAME);
+		store.add(highScore);
+	});
+}
+
 export default {
 	name: 'Game',
 
@@ -231,6 +301,15 @@ export default {
 		winGame () {
 			this.timer.stop();
 			this.state = STATE_GAME_WON;
+			addHighScore(this.db, {
+				name: 'steve',
+				seconds: this.secondsPlayed,
+				size: this.$route.query.size,
+				difficulty: this.$route.query.difficulty,
+				fields: this.fieldCount,
+				mines: this.mineCount,
+				timestamp: new Date(),
+			});
 		},
 
 		start () {
@@ -241,8 +320,8 @@ export default {
 						this.secondsPlayed += 1;
 					},
 				});
-				this.timer.start();
 			}
+			this.timer.start();
 			this.state = STATE_GAME_PLAYING;
 		},
 
@@ -272,8 +351,18 @@ export default {
 	},
 
 	mounted () {
-		window.addEventListener('blur', this.pause);
+		window.addEventListener('blur', () => {
+			if (this.isPlaying) {
+				this.pause()
+			}
+		});
 		this.start();
+	},
+
+	async created() {
+		this.db = await getDb();
+		this.highScores = await getHighScores(this.db);
+		// this.ready = true;
 	},
 };
 </script>
