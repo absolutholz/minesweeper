@@ -1,5 +1,12 @@
 module.exports = {
 	chainWebpack: (config) => {
+		config
+			.plugin('html')
+			.tap((args) => {
+				args[0].title = 'Minesweeper';
+				return args;
+			});
+
 		const svgRule = config.module.rule('svg');
 
 		svgRule.uses.clear();
@@ -70,9 +77,9 @@ module.exports = {
 	pwa: {
 		themeColor: '#fffff8',
 		manifestOptions: {
-			name: 'Minesweeper @ absolutholz.de',
+			name: 'Minesweeper',
 			short_name: 'Minesweeper',
-			description: 'A simple card minesweeper game',
+			description: 'A simple minesweeper game by absolutholz',
 			display: 'fullscreen',
 			background_color: '#fffff8',
 			icons: [
