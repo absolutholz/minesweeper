@@ -28,7 +28,8 @@
 
 <script>
 import SvgDetonated from '@mdi/svg/svg/mine.svg';
-import SvgFlagged from '@mdi/svg/svg/flag-triangle.svg';
+// import SvgFlagged from '@mdi/svg/svg/flag-triangle.svg';
+import SvgFlagged from './../../svgs/flag';
 import SvgQuestioned from '@mdi/svg/svg/help.svg';
 
 export const STATE_UNEXPLORED = 'unexplored';
