@@ -87,6 +87,16 @@
 			>Play</btn>
 		</form>
 
+		<div style="margin-top: var(--spacing-base)">
+			<btn
+				:to="{ name: 'HighScores', query: { size: size.id, difficulty: difficulty.id } }"
+				variant="outlined"
+			>
+				High Scores
+			</btn>
+
+		</div>
+
 	</container>
 </template>
 

@@ -1,24 +1,30 @@
 <template>
 	<div class="win-screen">
 		<h2 class="win-screen__hdln">Congratulations!</h2>
-		<div>
-			<btn-list>
-				<btn
-					@click="$emit('restart')"
-					variant="contained"
-				>
-					<svg-restart class="icon" />
-					Play Again
-				</btn>
-				<btn
-					:to="{ name: 'Config' }"
-					variant="contained"
-				>
-					<svg-home class="icon" />
-					New Game
-				</btn>
-			</btn-list>
+
+		<div
+			v-if="!!(this.$slots.default || [])[0]"
+			class="win-screen__rich-text"
+		>
+			<slot />
 		</div>
+
+		<btn-list class="win-screen__btn-list">
+			<btn
+				@click="$emit('restart')"
+				variant="contained"
+			>
+				<svg-restart class="icon" />
+				Play Again
+			</btn>
+			<btn
+				:to="{ name: 'Config' }"
+				variant="contained"
+			>
+				<svg-home class="icon" />
+				New Game
+			</btn>
+		</btn-list>
 	</div>
 </template>
 
@@ -66,6 +72,7 @@ export default {
 		color: white;
 		font-size: 2rem;
 		font-weight: $typography-weight-medium;
+		margin: 0;
 		text-shadow:
 			0px 0px 20px black,
 			0px 0px 10px var(--primary),
@@ -78,6 +85,17 @@ export default {
 		@media (min-width: 600px) {
 			font-size: 4rem;
 		}
+	}
+
+	&__btn-list {
+		margin-top: var(--spacing-base);
+	}
+
+	&__rich-text {
+		background: white;
+		border-radius: 3px;
+		padding: var(--spacing-base);
+		margin-top: var(--spacing-base);
 	}
 }
 </style>

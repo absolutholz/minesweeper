@@ -6,6 +6,7 @@
 		:aria-disabled="disabled"
 		:href="href"
 		:is="nodeType"
+		tabindex="0"
 		:to="to"
 	>
 		<span class="btn__bg"></span>
@@ -80,6 +81,10 @@ export default {
 
 <style lang="scss">
 @import "~scss-mixins-functions-variables/scss/typography/font-weight-variables";
+
+a.btn {
+	cursor: pointer;
+}
 
 // https://material.io/components/buttons
 .btn {
@@ -184,7 +189,7 @@ export default {
 
 	&--outlined {
 		border: 1px solid;
-		padding: calc(var(--spacing-v) - 1px) calc(var(--spacing-h) - 1px);
+		padding: calc(var(--spacing-v, 0.5rem) - 1px) calc(var(--spacing-h, 1rem) - 1px);
 	}
 
 	&--contained {

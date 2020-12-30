@@ -1,6 +1,7 @@
 <template>
 	<span class="timer">
 		<svg-timer
+			v-if="includeIcon"
 			aria-hidden="true"
 			class="icon timer__icon"
 		/>
@@ -47,6 +48,12 @@ export default {
 				return value > -1;
 			},
 		},
+
+		includeIcon: {
+			default: true,
+			required: false,
+			type: Boolean,
+		}
 	},
 
 	computed: {

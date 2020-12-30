@@ -18,7 +18,16 @@
 		<win-screen
 			v-if="isGameWon"
 			@restart="restart"
-		/>
+		>
+			<rich-text v-if="highScorePosition > -1 && highScorePosition < 10">
+				<p>That was your <span v-if="highScorePosition > 0">{{ highScoreOrdinal }}</span> best time!</p>
+				<p>See all your <router-link :to="{ name: 'HighScores', query: { size: $route.query.size, difficulty: $route.query.difficulty, highlight: highScorePosition } }">high scores</router-link></p>
+			</rich-text>
+			<rich-text v-else>
+				<p>That wasn't one of your 10 best times.</p>
+				<p>See all your <router-link :to="{ name: 'HighScores', query: { size: $route.query.size, difficulty: $route.query.difficulty } }">high scores</router-link></p>
+			</rich-text>
+		</win-screen>
 
 		<lose-screen
 			v-if="isGameLost"
@@ -64,6 +73,7 @@ import BtnList from './../../BtnList';
 import Grid from './../Grid';
 import LoseScreen from './../LoseScreen';
 import PauseScreen from './../PauseScreen';
+import RichText from './../../RichText';
 import Status from './../Status';
 import WinScreen from './../WinScreen';
 
@@ -146,6 +156,7 @@ export default {
 		Grid,
 		LoseScreen,
 		PauseScreen,
+		RichText,
 		Status,
 		WinScreen,
 
@@ -174,6 +185,7 @@ export default {
 			secondsPlayed: 0,
 			state: STATE_GAME_NOT_STARTED,
 			timer: null,
+			highScorePosition: 0,
 		};
 	},
 
@@ -204,7 +216,26 @@ export default {
 
 		isGameLost () {
 			return this.state === STATE_GAME_LOST;
-		}
+		},
+
+		highScoreOrdinal () {
+			const lastDigit = (this.highScorePosition + 1) % 10;
+			let ordinalEnding = 'th';
+
+			if (lastDigit === 1 && this.highScorePosition !== 11) {
+				ordinalEnding = 'st';
+			}
+
+			if (lastDigit === 2 && this.highScorePosition !== 12) {
+				ordinalEnding = 'nd';
+			}
+
+			if (lastDigit === 3 && this.highScorePosition !== 13) {
+				ordinalEnding = 'rd';
+			}
+
+			return lastDigit + ordinalEnding;
+		},
 	},
 
 	methods: {
@@ -244,8 +275,10 @@ export default {
 					return a.seconds - b.seconds;
 				});
 			const position = highScores.findIndex((score) => this.secondsPlayed <= score.seconds);
+			this.highScorePosition = position;
+			console.log(position);
 
-			if (position < 10) {
+			if (position > -1 && position < 10) {
 				console.log(`made the top 10 @ ${ position + 1 }`);
 				createHighScore({
 					name: 'player unknown',
@@ -262,7 +295,7 @@ export default {
 				}
 
 			} else {
-				console.log(`not one of your 10 best @ ${ position + 1 }`);
+				// console.log(`not one of your 10 best @ ${ position + 1 }`);
 			}
 		},
 
@@ -294,6 +327,7 @@ export default {
 			this.timer.stop();
 
 			this.flagCount = 0,
+			this.highScorePosition = 0;
 			this.revealedCount = 0,
 			this.score = 0;
 			this.secondsPlayed = 0;
@@ -312,12 +346,6 @@ export default {
 		});
 		this.start();
 	},
-
-	// async created() {
-	// 	// this.db = await getDb();
-	// 	// this.highScores = await getHighScores(this.db);
-	// 	// this.ready = true;
-	// },
 };
 </script>
 
