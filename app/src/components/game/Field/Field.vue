@@ -2,44 +2,26 @@
 	<span
 		class="field"
 		:class="stateClasses"
+		type="button"
 	>
 		<span
-			class="field__content"
 			v-if="isRevealed"
 		>{{ nearMineCount }}</span>
-		<div
+		<svg-flagged
 			v-else-if="isFlagged"
-			class="field__icon-wrapper"
-		>
-			<svg-flagged
-				class="icon field__content"
-			/>
-			<div class="field__flag-wrapper">
-				<svg-flagged
-					class="icon field__flag field__flag--ne"
-				/>
-				<svg-flagged
-					class="icon field__flag field__flag--se"
-				/>
-				<svg-flagged
-					class="icon field__flag field__flag--sw"
-				/>
-				<svg-flagged
-					class="icon field__flag field__flag--nw"
-				/>
-			</div>
-		</div>
+			class="icon"
+		/>
 		<svg-questioned
 			v-else-if="isQuestioned"
-			class="icon field__content"
+			class="icon"
 		/>
 		<svg-detonated
 			v-else-if="isDetonated"
-			class="icon field__content"
+			class="icon"
 		/>
 		<span
 			v-else
-			class="icon field__placeholder field__content"
+			class="icon field__placeholder"
 		></span>
 	</span>
 </template>
@@ -147,7 +129,7 @@ export default {
 	width: 100%;
 	will-change: background;
 
-	&__content {
+	> * {
 		height: 1em;
 		left: 50%;
 		margin: -0.5em 0 0 -0.5em;
@@ -170,18 +152,6 @@ export default {
 
 	&--flagged {
 
-	}
-
-	&__icon-wrapper {
-		align-content: center;
-		display: flex;
-		height: 100%;
-		justify-content: center;
-		left: 0;
-		margin: 0;
-		position: absolute;
-		top: 0;
-		width: 100%;
 	}
 
 	&--questioned {
@@ -228,48 +198,6 @@ export default {
 
 		&-8 {
 			color: #FF6F00;
-		}
-	}
-
-	&__flag-wrapper {
-		z-index: 1;
-	}
-
-	@keyframes flag-ani {
-		from {
-			opacity: 1;
-		}
-		to {
-			opacity: 0;
-			transform: translate(var(--pos-v), var(--pos-h)) scale(2);
-		}
-	}
-
-	&__flag {
-		animation: 250ms ease-out reverse forwards flag-ani;
-		left: 50%;
-		margin: -0.5em 0 0 -0.5em;
-		position: absolute;
-		top: 50%;
-
-		&--ne {
-			--pos-v: 2rem;
-			--pos-h: -2rem;
-		}
-
-		&--se {
-			--pos-v: 2rem;
-			--pos-h: 2rem;
-		}
-
-		&--sw {
-			--pos-v: -2rem;
-			--pos-h: 2rem;
-		}
-
-		&--nw {
-			--pos-v: -2rem;
-			--pos-h: -2rem;
 		}
 	}
 }

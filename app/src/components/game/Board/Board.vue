@@ -1,9 +1,7 @@
 <template>
 	<div class="board">
 		<div class="board__playing-field board__inset">
-			<div class="board__scrollable">
-				<slot />
-			</div>
+			<slot />
 		</div>
 		<div class="board__status">
 			<slot name="status" />
@@ -77,7 +75,7 @@ export default {
 		display: flex;
 		grid-area: field;
 		justify-content: center;
-		overflow: auto;
+		overflow: hidden;
 	}
 
 	&__status {
@@ -86,12 +84,6 @@ export default {
 
 	&__actions {
 		grid-area: actions;
-	}
-
-	&__scrollable {
-		max-height: 100%;
-		max-width: 100%;
-		overflow: auto;
 	}
 }
 </style>
