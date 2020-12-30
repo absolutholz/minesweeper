@@ -1,24 +1,26 @@
 <template>
-	<component
-		class="page-hdln"
-		:is="nodeType"
-	>
-		<div
-			v-if="!!(this.$slots.pre || [])[0]"
-			class="page-hdln__pre"
+	<div>
+		<component
+			class="page-hdln"
+			:is="nodeType"
 		>
-			<slot name="pre"></slot>
-		</div>
+			<div
+				v-if="!!(this.$slots.pre || [])[0]"
+				class="page-hdln__pre"
+			>
+				<slot name="pre"></slot>
+			</div>
 
-		<slot />
+			<slot />
 
-		<div
-			v-if="!!(this.$slots.post || [])[0]"
-			class="page-hdln__post"
-		>
-			<slot name="post"></slot>
-		</div>
-	</component>
+			<div
+				v-if="!!(this.$slots.post || [])[0]"
+				class="page-hdln__post"
+			>
+				<slot name="post"></slot>
+			</div>
+		</component>
+	</div>
 </template>
 
 <script>
