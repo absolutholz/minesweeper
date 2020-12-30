@@ -2,7 +2,6 @@
 	<span
 		class="field"
 		:class="stateClasses"
-		type="button"
 	>
 		<span
 			v-if="isRevealed"
