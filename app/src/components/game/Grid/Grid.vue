@@ -248,19 +248,11 @@ export default {
 
 	display: grid;
 	grid-auto-rows: var(--size);
-	// grid-gap: var(--gap);
 	grid-template-columns: repeat(
 		var(--columns),
 		var(--size)
 	);
-	// grid-template-columns: repeat(
-	// 	var(--columns),
-	// 	Min(50px, #{"(100% / var(--columns)) - var(--gap)"})
-	// );
 	margin: 0;
-	max-height: 100%;
-	max-width: 100%;
-	overflow: auto;
 
 	&__field-btn {
 		height: 100%;
