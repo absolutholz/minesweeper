@@ -28,14 +28,12 @@ export default {
 		fieldCount () {
 			const sizeParam =  this.$route.query.size;
 			const size = SIZES.find((size) => size.id === sizeParam);
-			console.log(sizeParam, size);
 			return (size || SIZES[Math.floor(SIZES.length / 2)]).fieldCount;
 		},
 
 		mineCount () {
 			const difficultyParam =  this.$route.query.difficulty;
 			const difficulty = DIFFICULTIES.find((difficulty) => difficulty.id === difficultyParam);
-			console.log(difficultyParam, difficulty);
 			return Math.round(this.fieldCount * (difficulty || DIFFICULTIES[1]).mineRatio);
 		},
 	},

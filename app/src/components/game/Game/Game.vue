@@ -274,12 +274,13 @@ export default {
 					// https://stackoverflow.com/questions/6913512/how-to-sort-an-array-of-objects-by-multiple-fields/20554416#20554416
 					return a.seconds - b.seconds;
 				});
-			const position = highScores.findIndex((score) => this.secondsPlayed <= score.seconds);
+			let position = highScores.length ? highScores.findIndex((score) => this.secondsPlayed <= score.seconds) : 0;
+			if (position < 0 && highScores.length < 10) {
+				position = highScores.length;
+			}
 			this.highScorePosition = position;
-			console.log(position);
 
 			if (position > -1 && position < 10) {
-				console.log(`made the top 10 @ ${ position + 1 }`);
 				createHighScore({
 					name: 'player unknown',
 					seconds: this.secondsPlayed,
@@ -293,9 +294,6 @@ export default {
 				if (highScores.length > 9) {
 					highScores.slice(9).forEach((score) => deleteHighScore(score.id));
 				}
-
-			} else {
-				// console.log(`not one of your 10 best @ ${ position + 1 }`);
 			}
 		},
 
