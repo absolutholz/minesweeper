@@ -32,7 +32,7 @@ export default {
 	margin: calc(var(--list-spacing-v, var(--spacing-base)) * -1) calc(var(--list-spacing-h, var(--spacing-base)) * -1);
 
 	> li {
-		margin: var(--list-spacing-v, var(--spacing-base)) var(--list-spacing-h, var(--spacing-base));
+		padding: var(--list-spacing-v, var(--spacing-base)) var(--list-spacing-h, var(--spacing-base));
 	}
 }
 </style>

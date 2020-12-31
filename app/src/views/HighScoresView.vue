@@ -1,37 +1,41 @@
 <template>
-	<container>
+	<main>
+		<page-section>
+			<container>
+				<page-hdln>High Scores</page-hdln>
+			</container>
+		</page-section>
 
-		<page-hdln>High Scores</page-hdln>
+		<page-section>
+			<container>
+				<div
+					v-if="trigger"
+				>
+					<high-score-section
+						v-for="(size, index) in highScores" :key="index"
+						:sizeKey="index"
+						:difficulties="size"
+					/>
+				</div>
 
-		<div
-			v-if="trigger"
-		>
-			<high-score-section
-				v-for="(size, index) in highScores" :key="index"
-				:sizeKey="index"
-				:difficulties="size"
-			/>
-		</div>
+				<btn
+					:to="{ name: 'Config' }"
+					variant="contained"
+				>
+					<svg-home class="icon" />
+					New Game
+				</btn>
 
-		<btn
-			:to="{ name: 'Config' }"
-			variant="contained"
-		>
-			<svg-home class="icon" />
-			New Game
-		</btn>
-
-	</container>
+			</container>
+		</page-section>
+	</main>
 </template>
 
 <script>
 import Btn from './../components/Btn';
 import Container from './../components/Container';
-// import DifficultyGraphic from './../components/DifficultyGraphic';
-// import ListFlexy from './../components/ListFlexy';
 import PageHdln from './../components/PageHdln';
-// import SizeGraphic from './../components/SizeGraphic';
-// import { SIZES, DIFFICULTIES } from './../components/game/Game';
+import PageSection from './../components/PageSection';
 import HighScoreSection from './../components/HighScoreSection';
 
 import SvgHome from '@mdi/svg/svg/home.svg';
@@ -46,6 +50,7 @@ export default {
 		Container,
 		HighScoreSection,
 		PageHdln,
+		PageSection,
 
 		SvgHome,
 	},

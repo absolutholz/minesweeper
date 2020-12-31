@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import GameView from '@/views/GameView.vue';
 import ConfigView from '@/views/ConfigView.vue';
 import HighScoresView from '@/views/HighScoresView.vue';
+import SettingsView from '@/views/SettingsView.vue';
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,11 @@ const routes = [
 		path: '/high-scores',
 		name: 'HighScores',
 		component: HighScoresView,
+	},
+	{
+		path: '/settings',
+		name: 'Settings',
+		component: SettingsView,
 	},
 ];
 
