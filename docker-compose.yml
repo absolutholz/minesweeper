@@ -7,9 +7,9 @@ services:
       context: ./app
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
-      - "8080:8080"
-      - "6006:6006"
+      - "8000:8000" # vue cli
+      - "8080:8080" # server
+      - "6006:6006" # storybook
     container_name: minesweeper-ui
     volumes:
        - ./app:/usr/src/app

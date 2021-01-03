@@ -70,8 +70,6 @@ export default {
 			const highlightPosition = this.$route.query.highlight || '';
 
 			return this.highScores.find((score, index) => {
-				console.log(score.difficulty, highlightDifficulty, score.size, highlightSize, index, highlightPosition);
-				console.log(score.difficulty === highlightDifficulty, score.size === highlightSize, index === highlightPosition);
 				return score.difficulty === highlightDifficulty
 					&& score.size === highlightSize
 					&& index == highlightPosition;

@@ -10,8 +10,8 @@ function getDb () {
 			let request = window.indexedDB.open(DB_NAME, DB_VERSION);
 
 			request.onerror = (event) => {
-				console.log('Error opening db', event);
-				reject('Error');
+				// console.log('Error opening db', event);
+				reject('Error', event);
 			};
 
 			request.onsuccess = (event) => {
@@ -19,9 +19,8 @@ function getDb () {
 			};
 
 			request.onupgradeneeded = (event) => {
-				console.log('onupgradeneeded');
+				// console.log('onupgradeneeded');
 				let tmpDb = event.target.result;
-				// let objectStore = db.createObjectStore(DB_STORE_NAME, { autoIncrement: true, keyPath: 'id' });
 				tmpDb.createObjectStore(DB_STORE_NAME, { autoIncrement: true, keyPath: 'id' });
 			};
 		});
@@ -39,8 +38,7 @@ export async function readHighScores () {
 		};
 
 		trans.onerror = (event) => {
-			console.log('Error getting high scores', event);
-			reject('Error');
+			reject('Error', event);
 		};
 
 		let store = trans.objectStore(DB_STORE_NAME);
@@ -66,8 +64,7 @@ export async function createHighScore (highScore) {
 		};
 
 		trans.onerror = (event) => {
-			console.log('Error adding high score', event);
-			reject('Error');
+			reject('Error', event);
 		};
 
 		let store = trans.objectStore(DB_STORE_NAME);
@@ -85,8 +82,7 @@ export async function deleteHighScore (id) {
 		};
 
 		trans.onerror = (event) => {
-			console.log('Error removing high score', event);
-			reject('Error');
+			reject('Error', event);
 		};
 
 		let store = trans.objectStore(DB_STORE_NAME);
