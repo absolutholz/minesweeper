@@ -88,20 +88,22 @@
 				>Play</btn>
 			</form>
 
-			<btn-list style="margin-top: var(--spacing-base)">
-				<btn
-					:to="{ name: 'HighScores', query: { size: size.id, difficulty: difficulty.id } }"
-					variant="outlined"
-				>
-					High Scores
-				</btn>
-				<btn
-					:to="{ name: 'Settings' }"
-					variant="outlined"
-				>
-					Settings
-				</btn>
-			</btn-list>
+			<page-section>
+				<btn-list>
+					<btn
+						:to="{ name: 'HighScores', query: { size: size.id, difficulty: difficulty.id } }"
+						variant="outlined"
+					>
+						High Scores
+					</btn>
+					<btn
+						:to="{ name: 'Settings' }"
+						variant="outlined"
+					>
+						Settings
+					</btn>
+				</btn-list>
+			</page-section>
 
 		</container>
 	</main>
@@ -114,6 +116,7 @@ import Container from './../components/Container';
 import DifficultyGraphic from './../components/DifficultyGraphic';
 import ListFlexy from './../components/ListFlexy';
 import PageHdln from './../components/PageHdln';
+import PageSection from './../components/PageSection';
 import SizeGraphic from './../components/SizeGraphic';
 import { SIZES, DIFFICULTIES } from './../components/game/Game';
 
@@ -129,6 +132,7 @@ export default {
 		DifficultyGraphic,
 		ListFlexy,
 		PageHdln,
+		PageSection,
 		SizeGraphic,
 
 		SvgCheck,

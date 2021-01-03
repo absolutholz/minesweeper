@@ -38,7 +38,7 @@
 		--typo-size-micro: 0.875rem;
 		--typo-size-mini: 1rem;
 		--typo-size-base: 1.125rem;
-		--typo-size-meag: 1.5rem;
+		--typo-size-mega: 1.5rem;
 		--typo-size-macro: 2rem;
 	}
 
@@ -61,6 +61,7 @@
 }
 
 body {
+	overflow: hidden;
 	overscroll-behavior: none;
 	font-size: var(--typo-size-base);
 }
